@@ -137,8 +137,8 @@ dotenv
 
 Fail2Ban (external)
 
-📌 Getting Started
-🔧 Prerequisites
+**📌 Getting Started**  
+*🔧 Prerequisites*
 Node.js (v14+)
 
 MongoDB Atlas or Local MongoDB
