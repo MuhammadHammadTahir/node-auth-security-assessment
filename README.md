@@ -111,7 +111,7 @@ Automatically bans IPs after repeated failed login attempts
 
 ## 🧪 Testing & Demo
 
-This section demonstrates the implemented security features with live testing results and screenshots captured using tools like **Postman**, **curl**, and **browser dev tools**.
+This section demonstrates the implemented security features with live testing results and screenshots captured using tools like **curl**.
 
 *Sample Request:*
 curl -X POST http://localhost:8080/api/auth/signin \
@@ -157,7 +157,7 @@ Implemented using the `helmet` middleware and customized Content Security Policy
 - Clickjacking  
 - Code injection
 
-DevTools response headers confirm the presence of security headers:
+Curl response headers confirm the presence of security headers:
 
 - `Content-Security-Policy`  
 - `Strict-Transport-Security` (HSTS)  
