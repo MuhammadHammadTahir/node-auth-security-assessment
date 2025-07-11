@@ -37,7 +37,7 @@ project-root/
 - Logs every failed login attempt with IP, username, and reason.
 - Stored at: `/var/log/app-login-failures.log`
 
-```log
+
 <img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/21c27336-c384-4aa7-8f26-71cc9291949a" />
 
 ✅ 2. Rate Limiting
