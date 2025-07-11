@@ -18,19 +18,15 @@ This project is a **security-audited and enhanced** version of a Node.js authent
 
 ## 📁 Project Structure
 
-project-root/
-├── server.js # Entry point
-├── package.json # Project dependencies
-├── .env # Sensitive keys (excluded from Git)
-├── /app
-│ ├── config/db.config.js # MongoDB configuration
-│ ├── models/ # Mongoose models (User, Role)
-│ ├── controllers/ # Auth logic (signup, signin, signout)
-│ └── routes/ # Auth and user routes
-
-yaml
-Copy
-Edit
+project-root/  
+├── server.js # Entry point  
+├── package.json # Project dependencies  
+├── .env # Sensitive keys (excluded from Git)  
+├── /app  
+│ ├── config/db.config.js # MongoDB configuration  
+│ ├── models/ # Mongoose models (User, Role)  
+│ ├── controllers/ # Auth logic (signup, signin, signout)  
+│ └── routes/ # Auth and user routes  
 
 ---
 
