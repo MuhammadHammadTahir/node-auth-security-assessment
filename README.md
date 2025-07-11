@@ -137,6 +137,37 @@ dotenv
 
 Fail2Ban (external)
 
+📌 Getting Started
+🔧 Prerequisites
+Node.js (v14+)
+
+MongoDB Atlas or Local MongoDB
+
+Optional: Kali VM for Fail2Ban integration
+
+📦 Install Dependencies
+bash
+Copy
+Edit
+npm install
+🧪 Run the Server
+bash
+Copy
+Edit
+node server.js
+🔐 Security Log Integration with Fail2Ban (VM Only)
+To enable intrusion detection with Fail2Ban:
+
+Set up logging as shown in auth.controller.js
+
+On your Kali/Ubuntu VM, create a custom Fail2Ban jail:
+
+Log file: /var/log/app-login-failures.log
+
+Filter: regex for "Failed login from IP"
+
+Enable the jail and monitor IP banning
+
 👨‍💻 Author
 
 Muhammad Hammad TahirCybersecurity Developer — DeveloperHub Project 2GitHub: @MuhammadHammadTahir
