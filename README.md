@@ -182,34 +182,29 @@ Using `express-rate-limit`, each IP address is limited to **100 requests per 15 
 
 ---
 
-🔐 Environment Variables
-Store sensitive data in a .env file:
-API_KEY=*************
+🔐 Environment Variables  
+Store sensitive data in a .env file:  
+API_KEY=*************  
 
-🚫 Do not hardcode secrets in your codebase.
+🚫 Do not hardcode secrets in your codebase.  
 
-📚 Technologies Used
-Node.js + Express.js
+📚 Technologies Used  
+Node.js + Express.js  
 
-MongoDB + Mongoose
+MongoDB + Mongoose  
 
-Helmet (security headers)
+Helmet (security headers)  
 
-express-rate-limit (rate limiting)
+express-rate-limit (rate limiting)  
 
-dotenv (env management)
+dotenv (env management)  
 
-Fail2Ban (external)
+Fail2Ban (external)  
 
-👨‍💻 Author
-Muhammad Hammad Tahir
-Cybersecurity Developer — DeveloperHub Project 2
+👨‍💻 Author  
+Muhammad Hammad Tahir  
+Cybersecurity Developer — DeveloperHub Project 2  
 🔗 GitHub: @MuhammadHammadTahir
 
-📜 License
+📜 License  
 This project was developed for educational purposes as part of a cybersecurity learning initiative. Feel free to fork, explore, or adapt.
-
-📸 Screenshots (Placeholders)
-<!-- Add relevant screenshots here like: -->
-
-
