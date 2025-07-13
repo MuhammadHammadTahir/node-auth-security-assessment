@@ -116,7 +116,7 @@ This section demonstrates the implemented security features with live testing re
 *Sample Request:*
 curl -X POST http://localhost:8080/api/auth/signin \
   -H "Content-Type: application/json" \
-  -H "x-api-key: supersecretkey" \
+  -H "x-api-key: **********" \
   -d '{"username":"admin", "password":"wrong"}'
 
 ---
