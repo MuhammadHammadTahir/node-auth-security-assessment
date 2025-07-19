@@ -40,7 +40,7 @@ project-root/
 
 <img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/21c27336-c384-4aa7-8f26-71cc9291949a" />
 
-✅ 2. Rate Limiting
+###✅ 2. Rate Limiting
 Limits each IP to 100 requests per 15 minutes.
 
 Helps mitigate brute-force and DDoS attacks.
@@ -53,7 +53,7 @@ app.use(rateLimit({
 <img width="975" height="339" alt="image" src="https://github.com/user-attachments/assets/eda6a4e0-f1fb-4f83-a60f-95db0339b33e" />
 <img width="975" height="544" alt="image" src="https://github.com/user-attachments/assets/c9c074b2-fad2-4c18-a1ec-7c3df03196b3" />
 
-✅ 3. CORS Restriction
+###✅ 3. CORS Restriction
 Configured to accept requests only from whitelisted origins.
 
 Supports credentials.
@@ -67,7 +67,7 @@ pp.use(cors());
    })
  );
 
-✅ 4. API Key Protection
+###✅ 4. API Key Protection
 Secures all API routes using a static API key.
 
 Expected via custom header: x-api-key
@@ -82,7 +82,7 @@ function checkApiKey(req, res, next) {
 }
 
 app.use("/api", checkApiKey);
-✅ 5. Secure HTTP Headers (Helmet)
+###✅ 5. Secure HTTP Headers (Helmet)
 Sets 11+ HTTP security headers using helmet
 
 Adds:
@@ -104,7 +104,7 @@ app.use(helmet.contentSecurityPolicy({
 }));
 <img width="975" height="276" alt="image" src="https://github.com/user-attachments/assets/7124d4dc-3242-46a8-9f24-066042e3b17e" />
 
-✅ 6. Integration with Fail2Ban
+###✅ 6. Integration with Fail2Ban
 Created a jail in Fail2Ban that monitors /var/log/app-login-failures.log
 
 Automatically bans IPs after repeated failed login attempts
