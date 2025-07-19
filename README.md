@@ -36,9 +36,7 @@ project-root/
 
 - Logs every failed login attempt with IP, username, and reason.
 - Stored at: `/var/log/app-login-failures.log`
-
-
-<img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/21c27336-c384-4aa7-8f26-71cc9291949a" />
+<img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/0b1e2260-1a35-4fd0-82b1-41f0d52dbb0f" />
 
 ### ✅ 2. Rate Limiting
 Limits each IP to 100 requests per 15 minutes.
@@ -50,8 +48,8 @@ app.use(rateLimit({
   max: 100,
   message: "Too many requests from this IP, please try again later."
 }));
-<img width="975" height="339" alt="image" src="https://github.com/user-attachments/assets/eda6a4e0-f1fb-4f83-a60f-95db0339b33e" />
-<img width="975" height="544" alt="image" src="https://github.com/user-attachments/assets/c9c074b2-fad2-4c18-a1ec-7c3df03196b3" />
+<img width="975" height="339" alt="image" src="https://github.com/user-attachments/assets/199807ab-2f79-4d32-aba3-59d0e4394b8c" />
+<img width="975" height="544" alt="image" src="https://github.com/user-attachments/assets/c818cddb-81f6-4975-99d1-47e265336c1f" />
 
 ### ✅ 3. CORS Restriction
 Configured to accept requests only from whitelisted origins.
@@ -102,7 +100,7 @@ app.use(helmet.contentSecurityPolicy({
     upgradeInsecureRequests: []
   },
 }));
-<img width="975" height="276" alt="image" src="https://github.com/user-attachments/assets/7124d4dc-3242-46a8-9f24-066042e3b17e" />
+<img width="975" height="276" alt="image" src="https://github.com/user-attachments/assets/a4dbc25d-55e7-458c-8c14-482ff52ad551" />
 
 ### ✅ 6. Integration with Fail2Ban
 Created a jail in Fail2Ban that monitors /var/log/app-login-failures.log
@@ -129,10 +127,14 @@ The system logs every failed login attempt with IP, username, and reason to a de
 These logs are monitored using **Fail2Ban**, which can automatically block malicious IPs after repeated failures.
 
 #### 🖼️ Screenshots:
-<img width="938" height="945" alt="Fail2Ban Log" src="https://github.com/user-attachments/assets/098f780c-2e2f-4d2b-926e-8b953863e811" />
-<img width="975" height="179" alt="Fail2Ban Jail Setup" src="https://github.com/user-attachments/assets/d8c58d94-7fe5-4712-8ce3-bf8b2a65f8d5" />
-<img width="975" height="235" alt="Fail2Ban Log Format" src="https://github.com/user-attachments/assets/69344d87-3298-429a-8c49-2f3238f322ee" />
-<img width="870" height="331" alt="Fail2Ban IP Ban Confirmation" src="https://github.com/user-attachments/assets/f8f8cece-355a-47b3-8e44-3948129d4760" />
+<img width="938" height="945" alt="image" src="https://github.com/user-attachments/assets/b6c921e0-5502-4594-9153-ad23c914b29f" />
+
+<img width="975" height="179" alt="image" src="https://github.com/user-attachments/assets/b523a2da-65ea-4aa7-9333-cb5f2a9fff5e" />
+
+<img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/ad20f02c-7ab6-40a6-80b5-ff35ad992b59" />
+
+<img width="870" height="331" alt="image" src="https://github.com/user-attachments/assets/daf930d2-ee43-47b9-8774-f60245aecda4" />
+
 
 ✅ **Result**: Unauthorized login attempts are detected, logged, and blocked in real time.
 
@@ -143,7 +145,8 @@ These logs are monitored using **Fail2Ban**, which can automatically block malic
 Each request to protected endpoints requires a valid API key in the header (`x-api-key`). Invalid or missing keys are denied with `403 Forbidden`.
 
 #### 🖼️ Screenshot:
-<img width="975" height="53" alt="API Key Header Check" src="https://github.com/user-attachments/assets/b4ebab45-2123-4e7f-87a9-5550c41b5e02" />
+
+<img width="1301" height="69" alt="image" src="https://github.com/user-attachments/assets/1c3e00bf-e25a-4c96-a863-2d5a6d62bc48" />
 
 ✅ **Result**: Access is restricted to authorized clients only, preventing misuse of public endpoints.
 
@@ -164,8 +167,11 @@ Curl response headers confirm the presence of security headers:
 - `X-Content-Type-Options`, `X-Frame-Options`, etc.
 
 #### 🖼️ Screenshots:
-<img width="975" height="276" alt="CSP Headers Confirmed" src="https://github.com/user-attachments/assets/d6532b9b-2f25-481b-9391-0922c1959f4c" />
-<img width="975" height="276" alt="HSTS & Helmet Headers" src="https://github.com/user-attachments/assets/699865e8-4f92-46c0-8fca-b7fae3e4173e" />
+
+<img width="975" height="276" alt="image" src="https://github.com/user-attachments/assets/5eca74e8-6adf-49ce-985d-1cb6e5d0b9ba" />
+
+<img width="975" height="667" alt="image" src="https://github.com/user-attachments/assets/45024147-59f7-4ea2-9787-e82199ad4aa0" />
+
 
 ✅ **Result**: All necessary security headers are enforced on HTTP responses to prevent client-side vulnerabilities.
 
@@ -176,7 +182,10 @@ Curl response headers confirm the presence of security headers:
 Using `express-rate-limit`, each IP address is limited to **100 requests per 15 minutes**. After exceeding the limit, requests are blocked with a `429 Too Many Requests` response.
 
 #### 🖼️ Screenshot:
-<img width="975" height="544" alt="Rate Limiting Triggered" src="https://github.com/user-attachments/assets/a6013bb4-eed0-439f-87a0-cf042c50625d" />
+<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/6f2f2f0a-b47e-4f25-b185-fb666996ee3a" />
+
+<img width="723" height="45" alt="image" src="https://github.com/user-attachments/assets/41dd0418-86fe-4803-9c9d-bc81496ee29d" />
+
 
 ✅ **Result**: Prevents brute-force login attempts and slows down bot-based abuse.
 
