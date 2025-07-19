@@ -35,9 +35,11 @@ project-root/
 ### ✅ 1. Intrusion Detection Logging
 
 - Logs every failed login attempt with IP, username, and reason.
-- Stored at: `/var/log/app-login-failures.log`
-- 
-<img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/0b1e2260-1a35-4fd0-82b1-41f0d52dbb0f" />
+- Stored at: `/var/log/app-login-failures.log` 
+
+<img width="975" height="234" alt="image" src="https://github.com/user-attachments/assets/a4a0abdb-13cb-4766-a6b4-9846fa1a67e7" />
+
+<img width="975" height="414" alt="image" src="https://github.com/user-attachments/assets/66ab61ef-ff3a-46c3-9b93-5bbddaaeb411" />
 
 ### ✅ 2. Rate Limiting
 Limits each IP to 100 requests per 15 minutes.
@@ -50,8 +52,7 @@ app.use(rateLimit({
   message: "Too many requests from this IP, please try again later."
 }));
 
-<img width="975" height="339" alt="image" src="https://github.com/user-attachments/assets/199807ab-2f79-4d32-aba3-59d0e4394b8c" />
-<img width="975" height="544" alt="image" src="https://github.com/user-attachments/assets/c818cddb-81f6-4975-99d1-47e265336c1f" />
+<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/70fd4147-9fd7-4002-8d0d-5b5926d9490d" />
 
 ### ✅ 3. CORS Restriction
 Configured to accept requests only from whitelisted origins.
@@ -107,16 +108,15 @@ app.use(helmet.contentSecurityPolicy({
     upgradeInsecureRequests: []
   },
 }));
-<img width="975" height="276" alt="image" src="https://github.com/user-attachments/assets/a4dbc25d-55e7-458c-8c14-482ff52ad551" />
+
+<img width="975" height="667" alt="image" src="https://github.com/user-attachments/assets/835cad9e-7419-40de-a61e-6f12198ab1c6" />
 
 ### ✅ 6. Integration with Fail2Ban
 Created a jail in Fail2Ban that monitors /var/log/app-login-failures.log
 
 Automatically bans IPs after repeated failed login attempts
 
-<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/e3a4168f-c33e-42eb-989e-a90a3895223e" />
-
-<img width="975" height="414" alt="image" src="https://github.com/user-attachments/assets/844ed486-3b77-4b35-9780-b964c65b4566" />
+<img width="938" height="945" alt="image" src="https://github.com/user-attachments/assets/d1cf61e7-ff59-47b7-816f-b7e09d9db5f0" />
 
 ## 🧪 Testing & Demo
 
@@ -181,9 +181,6 @@ Curl response headers confirm the presence of security headers:
 
 <img width="975" height="276" alt="image" src="https://github.com/user-attachments/assets/5eca74e8-6adf-49ce-985d-1cb6e5d0b9ba" />
 
-<img width="975" height="667" alt="image" src="https://github.com/user-attachments/assets/45024147-59f7-4ea2-9787-e82199ad4aa0" />
-
-
 ✅ **Result**: All necessary security headers are enforced on HTTP responses to prevent client-side vulnerabilities.
 
 ---
@@ -193,10 +190,8 @@ Curl response headers confirm the presence of security headers:
 Using `express-rate-limit`, each IP address is limited to **100 requests per 15 minutes**. After exceeding the limit, requests are blocked with a `429 Too Many Requests` response.
 
 #### 🖼️ Screenshot:
-<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/6f2f2f0a-b47e-4f25-b185-fb666996ee3a" />
 
 <img width="723" height="45" alt="image" src="https://github.com/user-attachments/assets/41dd0418-86fe-4803-9c9d-bc81496ee29d" />
-
 
 ✅ **Result**: Prevents brute-force login attempts and slows down bot-based abuse.
 
