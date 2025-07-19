@@ -182,13 +182,13 @@ Using `express-rate-limit`, each IP address is limited to **100 requests per 15 
 
 ---
 
-🔐 Environment Variables  
+### 🔐 Environment Variables  
 Store sensitive data in a .env file:  
 API_KEY=*************  
 
 🚫 Do not hardcode secrets in your codebase.  
 
-📚 Technologies Used  
+### 📚 Technologies Used  
 Node.js + Express.js  
 
 MongoDB + Mongoose  
@@ -201,10 +201,10 @@ dotenv (env management)
 
 Fail2Ban (external)  
 
-👨‍💻 Author  
+### 👨‍💻 Author  
 Muhammad Hammad Tahir  
 Cybersecurity Developer — DeveloperHub Project 2  
 🔗 GitHub: @MuhammadHammadTahir
 
-📜 License  
+### 📜 License  
 This project was developed for educational purposes as part of a cybersecurity learning initiative. Feel free to fork, explore, or adapt.
