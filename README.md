@@ -1,76 +1,225 @@
-# Node.js Express Login and Registration example with MongoDB and JWT
+# node-auth-security-assessment
+# 🛡️ Node.js Authentication Security Hardening Project
 
-- Appropriate Flow for User Login and Registration with JWT and Cookies
-- Node.js Express Architecture with CORS, Authentication & Authorization middlewares & Sequelize
-- How to configure Express routes to work with JWT
-- How to define Data Models and association for Authentication and Authorization
-- Way to use Sequelize to interact with MySQL Database
+This project is a **security-audited and enhanced** version of a Node.js authentication system. Built using **Node.js**, **Express**, and **MongoDB**, this application underwent a structured analysis to identify security vulnerabilities, followed by remediation using modern best practices.
 
-## User Registration, User Login and Authorization process.
-The diagram shows flow of how we implement User Registration, User Login and Authorization process.
+> 📌 This repository is part of a DevelopersHub.co **Cybersecurity Internship Project** that involves auditing an existing authentication system, finding flaws, and implementing robust countermeasures.
 
-![node-js-express-login-example-mongodb-flow](node-js-express-login-example-mongodb-flow.png)
+---
 
-For more detail, please visit:
-> [Node.js Express Login and Registration example with MongoDB and JWT](https://www.bezkoder.com/node-js-express-login-mongodb/)
+## 🔍 Project Goals
 
-Working with Front-end:
-> [Angular 12](https://www.bezkoder.com/angular-12-jwt-auth-httponly-cookie/) / [Angular 13](https://www.bezkoder.com/angular-13-jwt-auth-httponly-cookie/) / [Angular 14](https://www.bezkoder.com/angular-14-jwt-auth/) / [Angular 15](https://www.bezkoder.com/angular-15-jwt-auth/) / [Angular 16](https://www.bezkoder.com/angular-16-jwt-auth/) / [Angular 17](https://www.bezkoder.com/angular-17-jwt-auth/)
+- ✅ Audit an existing Node.js authentication app  
+- ✅ Identify security flaws (e.g., brute-force attacks, missing headers, weak CORS policies)  
+- ✅ Implement and test security enhancements  
+- ✅ Log intrusion attempts and integrate with host-level tools (e.g., Fail2Ban)
 
-> [React](https://www.bezkoder.com/react-login-example-jwt-hooks/) / [React Redux](https://www.bezkoder.com/redux-toolkit-auth/)
+---
 
-## More Practice:
-> [Node.js, Express & MongoDb: Build a CRUD Rest Api example](https://www.bezkoder.com/node-express-mongodb-crud-rest-api/)
+## 📁 Project Structure
 
-> [Server side Pagination in Node.js with MongoDB and Mongoose](https://www.bezkoder.com/node-js-mongodb-pagination/)
+project-root/  
+├── server.js # Entry point  
+├── package.json # Project dependencies  
+├── .env # Sensitive keys (excluded from Git)  
+├── /app  
+│ ├── config/db.config.js # MongoDB configuration  
+│ ├── models/ # Mongoose models (User, Role)  
+│ ├── controllers/ # Auth logic (signup, signin, signout)  
+│ └── routes/ # Auth and user routes  
 
-> [Node.js Express File Upload Rest API example](https://www.bezkoder.com/node-js-express-file-upload/)
+---
 
-> [Node.js + MongoDB: User Authentication & Authorization with JWT (using HTTP headers)](https://www.bezkoder.com/node-js-mongodb-auth-jwt/)
+## 🧪 Features & Enhancements
 
-Associations:
-> [MongoDB One-to-One relationship tutorial with Mongoose examples](https://www.bezkoder.com/mongoose-one-to-one-relationship-example/)
+### ✅ 1. Intrusion Detection Logging
 
-> [MongoDB One-to-Many Relationship tutorial with Mongoose examples](https://www.bezkoder.com/mongoose-one-to-many-relationship/)
+- Logs every failed login attempt with IP, username, and reason.
+- Stored at: `/var/log/app-login-failures.log` 
 
-> [MongoDB Many-to-Many Relationship with Mongoose examples](https://www.bezkoder.com/mongodb-many-to-many-mongoose/)
+<img width="975" height="234" alt="image" src="https://github.com/user-attachments/assets/a4a0abdb-13cb-4766-a6b4-9846fa1a67e7" />
 
-Fullstack:
-> [Vue.js + Node.js + Express + MongoDB example](https://www.bezkoder.com/vue-node-express-mongodb-mevn-crud/)
+<img width="975" height="414" alt="image" src="https://github.com/user-attachments/assets/66ab61ef-ff3a-46c3-9b93-5bbddaaeb411" />
 
-> [Angular 8 + Node.js + Express + MongoDB example](https://www.bezkoder.com/angular-mongodb-node-express/)
+### ✅ 2. Rate Limiting
+Limits each IP to 100 requests per 15 minutes.
 
-> [Angular 10 + Node.js + Express + MongoDB example](https://www.bezkoder.com/angular-10-mongodb-node-express/)
+Helps mitigate brute-force and DDoS attacks.
 
-> [Angular 11 + Node.js + Express + MongoDB example](https://www.bezkoder.com/angular-11-mongodb-node-js-express/)
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: "Too many requests from this IP, please try again later."
+}));
 
-> [Angular 12 + Node.js + Express + MongoDB example](https://www.bezkoder.com/angular-12-mongodb-node-js-express/)
+<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/70fd4147-9fd7-4002-8d0d-5b5926d9490d" />
 
-> [Angular 13 + Node.js + Express + MongoDB example](https://www.bezkoder.com/mean-stack-crud-example-angular-13/)
+### ✅ 3. CORS Restriction
+Configured to accept requests only from whitelisted origins.
 
-> [Angular 14 + Node.js + Express + MongoDB example](https://www.bezkoder.com/mean-stack-crud-example-angular-14/)
+Supports credentials.
 
-> [Angular 15 + Node.js + Express + MongoDB example](https://www.bezkoder.com/angular-15-node-js-express-mongodb/)
+pp.use(cors());
+/* for Angular Client (withCredentials) */
+ app.use(
+   cors({
+     credentials: true,
+     origin: ["http://localhost:8081"],
+   })
+ );
 
-> [Angular 16 + Node.js + Express + MongoDB example](https://www.bezkoder.com/angular-16-node-js-express-mongodb/)
+<img width="975" height="232" alt="image" src="https://github.com/user-attachments/assets/9bd98b12-6b83-4621-a597-6366de89a76f" />
+ 
+### ✅ 4. API Key Protection
+Secures all API routes using a static API key.
 
-> [Angular 17 + Node.js + Express + MongoDB example](https://www.bezkoder.com/angular-17-node-js-express-mongodb/)
+Expected via custom header: x-api-key
 
-> [React + Node.js + Express + MongoDB example](https://www.bezkoder.com/react-node-express-mongodb-mern-stack/)
+const API_KEY = process.env.API_KEY;
 
-Integration on same Server/Port:
-> [Integrate Vue with Node.js Express](https://www.bezkoder.com/serve-vue-app-express/)
+function checkApiKey(req, res, next) {
+  if (req.headers['x-api-key'] !== API_KEY) {
+    return res.status(403).json({ message: "Forbidden. Invalid API Key." });
+  }
+  next();
+}
 
-> [Integrate Angular with Node.js Express](https://www.bezkoder.com/integrate-angular-12-node-js/)
+app.use("/api", checkApiKey);
 
-> [Integrate React with Node.js Express](https://www.bezkoder.com/integrate-react-express-same-server-port/)
+<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/e3a4168f-c33e-42eb-989e-a90a3895223e" />
 
-## Project setup
-```
-npm install
-```
+### ✅ 5. Secure HTTP Headers (Helmet)
+Sets 11+ HTTP security headers using helmet
 
-### Run
-```
-node server.js
-```
+Adds:
+
+Content-Security-Policy
+
+Strict-Transport-Security
+
+X-Frame-Options
+
+app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'"],
+    objectSrc: ["'none'"],
+    upgradeInsecureRequests: []
+  },
+}));
+
+<img width="975" height="667" alt="image" src="https://github.com/user-attachments/assets/835cad9e-7419-40de-a61e-6f12198ab1c6" />
+
+### ✅ 6. Integration with Fail2Ban
+Created a jail in Fail2Ban that monitors /var/log/app-login-failures.log
+
+Automatically bans IPs after repeated failed login attempts
+
+<img width="938" height="945" alt="image" src="https://github.com/user-attachments/assets/d1cf61e7-ff59-47b7-816f-b7e09d9db5f0" />
+
+## 🧪 Testing & Demo
+
+This section demonstrates the implemented security features with live testing results and screenshots captured using tools like **curl**.
+
+*Sample Request:*
+curl -X POST http://localhost:8080/api/auth/signin \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: **********" \
+  -d '{"username":"admin", "password":"wrong"}'
+
+---
+
+### 🔐 1. Intrusion Detection & Monitoring (Fail2Ban Integration)
+
+The system logs every failed login attempt with IP, username, and reason to a dedicated log file:  
+`/var/log/app-login-failures.log`
+
+These logs are monitored using **Fail2Ban**, which can automatically block malicious IPs after repeated failures.
+
+#### 🖼️ Screenshots:
+<img width="938" height="945" alt="image" src="https://github.com/user-attachments/assets/b6c921e0-5502-4594-9153-ad23c914b29f" />
+
+<img width="975" height="179" alt="image" src="https://github.com/user-attachments/assets/b523a2da-65ea-4aa7-9333-cb5f2a9fff5e" />
+
+<img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/ad20f02c-7ab6-40a6-80b5-ff35ad992b59" />
+
+<img width="870" height="331" alt="image" src="https://github.com/user-attachments/assets/daf930d2-ee43-47b9-8774-f60245aecda4" />
+
+
+✅ **Result**: Unauthorized login attempts are detected, logged, and blocked in real time.
+
+---
+
+### 🔑 2. API Security with API Key Authentication
+
+Each request to protected endpoints requires a valid API key in the header (`x-api-key`). Invalid or missing keys are denied with `403 Forbidden`.
+
+#### 🖼️ Screenshot:
+
+<img width="1301" height="69" alt="image" src="https://github.com/user-attachments/assets/1c3e00bf-e25a-4c96-a863-2d5a6d62bc48" />
+
+✅ **Result**: Access is restricted to authorized clients only, preventing misuse of public endpoints.
+
+---
+
+### 🛡️ 3. Security Headers & CSP Implementation (Helmet Middleware)
+
+Implemented using the `helmet` middleware and customized Content Security Policy (CSP) to prevent:
+
+- XSS attacks  
+- Clickjacking  
+- Code injection
+
+Curl response headers confirm the presence of security headers:
+
+- `Content-Security-Policy`  
+- `Strict-Transport-Security` (HSTS)  
+- `X-Content-Type-Options`, `X-Frame-Options`, etc.
+
+#### 🖼️ Screenshots:
+
+<img width="975" height="276" alt="image" src="https://github.com/user-attachments/assets/5eca74e8-6adf-49ce-985d-1cb6e5d0b9ba" />
+
+✅ **Result**: All necessary security headers are enforced on HTTP responses to prevent client-side vulnerabilities.
+
+---
+
+### 🌐 4. HTTP Rate Limiting (Brute-Force Mitigation)
+
+Using `express-rate-limit`, each IP address is limited to **100 requests per 15 minutes**. After exceeding the limit, requests are blocked with a `429 Too Many Requests` response.
+
+#### 🖼️ Screenshot:
+
+<img width="723" height="45" alt="image" src="https://github.com/user-attachments/assets/41dd0418-86fe-4803-9c9d-bc81496ee29d" />
+
+✅ **Result**: Prevents brute-force login attempts and slows down bot-based abuse.
+
+---
+
+### 🔐 Environment Variables  
+Store sensitive data in a .env file:  
+API_KEY=*************  
+
+🚫 Do not hardcode secrets in your codebase.  
+
+### 📚 Technologies Used  
+Node.js + Express.js  
+
+MongoDB + Mongoose  
+
+Helmet (security headers)  
+
+express-rate-limit (rate limiting)  
+
+dotenv (env management)  
+
+Fail2Ban (external)  
+
+### 👨‍💻 Author  
+Muhammad Hammad Tahir  
+Cybersecurity Developer — DeveloperHub Project 2  
+🔗 GitHub: @MuhammadHammadTahir
+
+### 📜 License  
+This project was developed for educational purposes as part of a cybersecurity learning initiative. Feel free to fork, explore, or adapt.
