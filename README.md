@@ -36,6 +36,7 @@ project-root/
 
 - Logs every failed login attempt with IP, username, and reason.
 - Stored at: `/var/log/app-login-failures.log`
+- 
 <img width="975" height="235" alt="image" src="https://github.com/user-attachments/assets/0b1e2260-1a35-4fd0-82b1-41f0d52dbb0f" />
 
 ### ✅ 2. Rate Limiting
@@ -48,6 +49,7 @@ app.use(rateLimit({
   max: 100,
   message: "Too many requests from this IP, please try again later."
 }));
+
 <img width="975" height="339" alt="image" src="https://github.com/user-attachments/assets/199807ab-2f79-4d32-aba3-59d0e4394b8c" />
 <img width="975" height="544" alt="image" src="https://github.com/user-attachments/assets/c818cddb-81f6-4975-99d1-47e265336c1f" />
 
@@ -64,6 +66,8 @@ pp.use(cors());
      origin: ["http://localhost:8081"],
    })
  );
+
+<img width="975" height="232" alt="image" src="https://github.com/user-attachments/assets/9bd98b12-6b83-4621-a597-6366de89a76f" />
  
 ### ✅ 4. API Key Protection
 Secures all API routes using a static API key.
@@ -80,6 +84,9 @@ function checkApiKey(req, res, next) {
 }
 
 app.use("/api", checkApiKey);
+
+<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/e3a4168f-c33e-42eb-989e-a90a3895223e" />
+
 ### ✅ 5. Secure HTTP Headers (Helmet)
 Sets 11+ HTTP security headers using helmet
 
@@ -106,6 +113,10 @@ app.use(helmet.contentSecurityPolicy({
 Created a jail in Fail2Ban that monitors /var/log/app-login-failures.log
 
 Automatically bans IPs after repeated failed login attempts
+
+<img width="975" height="386" alt="image" src="https://github.com/user-attachments/assets/e3a4168f-c33e-42eb-989e-a90a3895223e" />
+
+<img width="975" height="414" alt="image" src="https://github.com/user-attachments/assets/844ed486-3b77-4b35-9780-b964c65b4566" />
 
 ## 🧪 Testing & Demo
 
