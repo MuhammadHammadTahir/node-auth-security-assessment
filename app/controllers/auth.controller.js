@@ -6,6 +6,16 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+const fs = require("fs");
+
+// Log failed login attempts to file for Fail2Ban
+function logFailedLogin(ip, username, reason) {
+  const log = `${new Date().toISOString()} - Failed login from IP: ${ip}, username: ${username}, reason: ${reason}\n`;
+  fs.appendFile("/var/log/app-login-failures.log", log, err => {
+    if (err) console.error("Logging error:", err);
+  });
+}
+
 exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
@@ -74,6 +84,7 @@ exports.signin = (req, res) => {
       }
 
       if (!user) {
+        logFailedLogin(req.ip, req.body.username, "User not found");
         return res.status(404).send({ message: "User Not found." });
       }
 
@@ -83,19 +94,19 @@ exports.signin = (req, res) => {
       );
 
       if (!passwordIsValid) {
+        logFailedLogin(req.ip, req.body.username, "Invalid password");
         return res.status(401).send({ message: "Invalid Password!" });
       }
 
       const token = jwt.sign({ id: user.id },
-                              config.secret,
-                              {
-                                algorithm: 'HS256',
-                                allowInsecureKeySizes: true,
-                                expiresIn: 86400, // 24 hours
-                              });
+        config.secret,
+        {
+          algorithm: 'HS256',
+          allowInsecureKeySizes: true,
+          expiresIn: 86400, // 24 hours
+        });
 
       var authorities = [];
-
       for (let i = 0; i < user.roles.length; i++) {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
       }

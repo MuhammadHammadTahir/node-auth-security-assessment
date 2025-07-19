@@ -1,19 +1,50 @@
 const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
+require("dotenv").config(); // Load .env variables
+const API_KEY = process.env.API_KEY
 
 const dbConfig = require("./app/config/db.config");
 
 const app = express();
 
+app.use(helmet()); // adds 11+ security headers
+
+// Add Content Security Policy (CSP)
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'"], // update as needed
+    objectSrc: ["'none'"],
+    upgradeInsecureRequests: [],
+  },
+}));
+
+// Enforce HTTPS using HSTSS
+app.use(helmet.hsts({
+  maxAge: 31536000, // 1 year
+  includeSubDomains: true
+}));
+
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per window
+  message: "Too many requests from this IP, please try again later."
+});
+app.use(limiter);
+
+
 app.use(cors());
 /* for Angular Client (withCredentials) */
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: ["http://localhost:8081"],
-//   })
-// );
+ app.use(
+   cors({
+     credentials: true,
+     origin: ["http://localhost:8081"],
+   })
+ );
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -33,7 +64,7 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(`mongodb+srv://hammad:hammad123@cluster0.sz5zfsq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -50,6 +81,17 @@ db.mongoose
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
+
+
+function checkApiKey(req, res, next) {
+  const key = req.headers['x-api-key'];
+  if (!key || key !== API_KEY) {
+    return res.status(403).json({ message: "Forbidden. Invalid API Key." });
+  }
+  next();
+}
+
+app.use(checkApiKey);
 
 // routes
 require("./app/routes/auth.routes")(app);
