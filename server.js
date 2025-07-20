@@ -5,10 +5,22 @@ const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 require("dotenv").config(); // Load .env variables
 const API_KEY = process.env.API_KEY
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
 
 const dbConfig = require("./app/config/db.config");
 
 const app = express();
+
+// Setup
+app.use(cookieParser());
+app.use(csrf({ cookie: true }));
+
+// Pass token to views (if using frontend templates)
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 app.use(helmet()); // adds 11+ security headers
 
