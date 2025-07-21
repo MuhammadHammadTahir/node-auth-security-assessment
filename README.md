@@ -1,4 +1,4 @@
-# Week-04 node-auth-security-assessment
+# Week-04 Advanced Threat Detection & Web Security Enhancements
 # 🛡️ Node.js Authentication Security Hardening Project
 
 This project is a **security-audited and enhanced** version of a Node.js authentication system. Built using **Node.js**, **Express**, and **MongoDB**, this application underwent a structured analysis to identify security vulnerabilities, followed by remediation using modern best practices.
